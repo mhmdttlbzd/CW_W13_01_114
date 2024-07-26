@@ -1,0 +1,10 @@
+﻿@model RegisterModel
+<form asp-action="RegisterPost">
+    <label class="form-label">Name</label>
+    <input asp-for="Name" class="form-control">
+    <label class="form-label">Email</label>
+    <input asp-for="Email" class="form-control">
+    <label  class="form-label">Password</label>
+    <input asp-for="Password" class="form-control" aria-describedby="passwordHelpBlock">
+    <button class="btn btn-outline-secondary mt-3" type="submit">submit</button>
+</form>

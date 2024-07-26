@@ -1,0 +1,27 @@
+﻿@using CW_W13_01_114.Data
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+@model List<IndexModel>;
+<a class="btn btn-outline-secondary" asp-action="Register">create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td><a class="btn btn-outline-secondary" href="#">edit</a></td>
+                <td><a class="btn btn-danger" href="#">delete</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
