@@ -19,25 +19,43 @@ namespace CW_W13_01_114.Controllers
             var repo = new UserRepository();
             var users = repo.GetAll();
             var res = new List<IndexModel>();
-            foreach (var user in users) { 
-                res.Add(new IndexModel {Name = user.Name,Email = user.Email});
+            foreach (var user in users) {
+                res.Add(new IndexModel { Id = user.Id.ToString(), Name = user.Name, Email = user.Email });
             }
             return View(res);
         }
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register(Guid id)
         {
-            return View();
+            var repo = new UserRepository();
+            var user = repo.GetById(id);
+            var res = new RegisterModel();
+            if (user != null) { res.Name = user.Name; res.Email = user.Email;res.Password = user.Password; }
+            ViewData["id"] = id;
+            return View(res);
         }
 
         [HttpPost]
-        public IActionResult RegisterPost(RegisterModel model)
+        public IActionResult RegisterPost(RegisterModel model,Guid id)
         {
             var user = new User { Email = model.Email ,Password = model.Password,Name = model.Name};
             var repo = new UserRepository();
-            repo.Create(user);
+            if (id == Guid.Empty)
+            {
+                repo.Create(user);
+            }
+            else {
+                repo.Update(user, id);
+            }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult DeleteUser(string id) {
+            var repo = new UserRepository();
+            repo.Delete(Guid.Parse(id));
+            return RedirectToAction("Index");
+        }
+        
         public IActionResult Privacy()
         {
             return View();

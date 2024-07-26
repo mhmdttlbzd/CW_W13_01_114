@@ -18,8 +18,15 @@
             <tr>
                 <td>@user.Name</td>
                 <td>@user.Email</td>
-                <td><a class="btn btn-outline-secondary" href="#">edit</a></td>
-                <td><a class="btn btn-danger" href="#">delete</a></td>
+                <td>
+                    <a asp-action="Register" asp-route-id="@user.Id" class="btn btn-outline-primary">edit</a>
+                </td>
+                <td>
+                    <form asp-action="DeleteUser">
+                        <input hidden name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger">delete</button>
+                    </form>
+                </td>
             </tr>
         }
 
